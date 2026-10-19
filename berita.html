@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <title>Berita PJJ</title>
+    <style>
+        :root { --ease: cubic-bezier(0.25, 0.8, 0.25, 1); --teal: #038387; --teal-dark: #025f63; --mint: #5FDD9C; }
+        body { font-family: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif; background-color: #f3f3f3; margin-top: 40px; position: relative; z-index: 0; overflow-x: hidden; }
+
+        /* Glow ngikutin kursor (digerakin lewat transform + requestAnimationFrame biar halus) */
+        .mouse-glow { position: fixed; top: 0; left: 0; width: 400px; height: 400px; background: radial-gradient(circle, rgba(3, 131, 135, 0.15) 0%, rgba(95, 221, 156, 0.05) 40%, rgba(243, 243, 243, 0) 70%); border-radius: 50%; pointer-events: none; z-index: -1; opacity: 0; transform: translate3d(-500px, -500px, 0); transition: opacity 0.4s ease; will-change: transform, opacity; }
+
+        /* Animasi masuk */
+        @keyframes smoothFade { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        table { border-radius: 16px; overflow: hidden; border-collapse: collapse; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08); background-color: #ffffff; position: relative; z-index: 1; animation: smoothFade 0.6s var(--ease) both; }
+        td { border: none; padding: 20px; }
+
+        .header-title  { animation: slideUpFade 0.6s var(--ease) 0.1s both; }
+        .nav-menu      { animation: slideUpFade 0.6s var(--ease) 0.2s both; }
+        .content-area  { animation: slideUpFade 0.6s var(--ease) 0.3s both; }
+        .sidebar-area  { animation: slideUpFade 0.6s var(--ease) 0.4s both; }
+        .footer        { animation: slideUpFade 0.6s var(--ease) 0.5s both; }
+
+        .header-title h1 { color: white; margin-bottom: 5px; font-size: 32px; font-weight: 600; }
+        .header-title p { color: #E0f2f1; margin-top: 0; font-size: 16px; }
+
+        /* Menu navigasi */
+        .nav-menu { background: #fafafa; padding: 20px 30px !important; text-align: center; border-bottom: 1px solid #eaeaea; }
+        .nav-menu a { text-decoration: none; color: #202020; padding: 12px 28px; margin: 0 8px; border-radius: 30px; font-weight: 600; font-size: 14px; display: inline-block; background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3)); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04), inset 0 2px 4px rgba(255, 255, 255, 0.6); transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease); }
+        .nav-menu a:hover { background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.5)); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), inset 0 2px 6px rgba(255, 255, 255, 0.9); color: var(--teal); }
+        .nav-menu a:active { transform: translateY(-1px) scale(0.97); }
+        .nav-menu a:focus-visible, .wa-btn:focus-visible { outline: 3px solid rgba(3, 131, 135, 0.45); outline-offset: 3px; }
+        .nav-menu a.active, .nav-menu a.active:hover, .nav-menu a.active:active { background: linear-gradient(135deg, var(--teal), var(--teal-dark)); color: #ffffff; border-color: var(--teal-dark); box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(3, 131, 135, 0.3); transform: scale(0.96); }
+
+        /* Link judul & "Selengkapnya" */
+        .content-link, .title-link { text-decoration: none; display: inline-block; transition: transform 0.3s var(--ease), color 0.3s var(--ease); }
+        .content-link { color: var(--teal); font-weight: bold; }
+        .title-link { color: #000; font-size: 18px; }
+        .content-link:hover, .title-link:hover { transform: translateX(8px); color: var(--teal-dark); }
+
+        /* Sidebar */
+        ul { padding-left: 20px; } ul li { margin-bottom: 10px; }
+        ul li a { text-decoration: none; color: #333; display: inline-block; transition: color 0.25s var(--ease), transform 0.25s var(--ease); }
+        ul li a:hover { color: var(--teal); transform: translateX(4px); }
+
+        .footer-text { color: #1a4f33; font-weight: 500; }
+
+        /* Hormati pengaturan "kurangi gerakan" & perangkat sentuh */
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .mouse-glow { display: none; } }
+        @media (hover: none) { .mouse-glow { display: none; } }
+    </style>
+</head>
+<body>
+    <div id="mouse-glow" class="mouse-glow"></div>
+    <table width="800" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+            <td colspan="2" bgcolor="#038387" align="center" height="150" class="header-title">
+                <h1>Galih Isnan Aprian</h1>
+                <p><i>DREAM BIG, ACT BIGGER</i></p>
+            </td>
+        </tr>
+        <tr>    
+            <td colspan="2" class="nav-menu"> 
+                <a href="index.html" class="active">Home</a>
+                <a href="hubungi.html">Hubungi</a>
+                <a href="galery.html">Kegiatan</a>
+                <a href="profil.html">Tentang Saya</a>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td width="70%" style="padding: 30px;" class="content-area">
+                <p style="font-size: 18px;"><b>Karena Asap Vulkanik, Sistem PJJ Ditetapkan Di Semua Sekolah</b></p>
+                <p style="color: #777; font-size: 14px; margin-top: -10px;">Selasa, 8 September 2026 | Galih Isnan Aprian</p>
+                <p style="line-height: 1.6;">Disebabkan abu letusan gunung Krakatau yang menyebar ke Jabodetabek. SMK Negeri 1 Kota Tangerang Melakukan Sistem PJJ Selama 3 Hari.</p>
+            </td>
+            <td width="30%" bgcolor="#f9f9f9" style="padding: 30px; border-left: 1px solid #eaeaea;" class="sidebar-area">
+                <p><b>Temukan Kami!</b></p>
+                <ul>
+                    <li><a href="https://www.instagram.com/smkn1tng/" target="_blank">Instagram Nesta</a></li>
+                    <li><a href="https://www.instagram.com/menfess.nesta/" target="_blank">Menfess Nesta</a></li>
+                    <li><a href="https://www.smkn1-tng.sch.id/" target="_blank">Website Nesta</a></li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center" bgcolor="#5FDD9C" class="footer" style="padding: 15px;">
+                <font size="2" class="footer-text">&copy; Copyright 2026 | SMK Negeri 1 Kota Tangerang</font>
+            </td>
+        </tr>
+    </table>
+    <script>
+        // Glow ngikutin kursor: update dibatch per frame biar nggak berat
+        (function () {
+            var glow = document.getElementById("mouse-glow");
+            if (!glow) return;
+            var x = 0, y = 0, queued = false;
+            document.addEventListener("mousemove", function (e) {
+                x = e.clientX; y = e.clientY;
+                if (queued) return;
+                queued = true;
+                requestAnimationFrame(function () {
+                    glow.style.transform = "translate3d(" + (x - 200) + "px," + (y - 200) + "px,0)";
+                    glow.style.opacity = "1";
+                    queued = false;
+                });
+            });
+            document.documentElement.addEventListener("mouseleave", function () { glow.style.opacity = "0"; });
+        })();
+    </script>
+</body>
+</html>
